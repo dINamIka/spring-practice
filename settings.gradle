@@ -1,3 +1,4 @@
 rootProject.name = 'spring-practice'
 include 'ioc-container'
+include 'aop'
 
