@@ -1,10 +1,14 @@
 plugins {
     id 'java'
-    id "io.freefair.lombok" version "4.1.5"
+    id "io.freefair.lombok" version "5.1.0"
 }
 
 group 'com.yarmak'
 version '1.0-SNAPSHOT'
+
+ext {
+    springVersion = "5.2.1.RELEASE"
+}
 
 sourceCompatibility = 11
 
@@ -13,9 +17,14 @@ repositories {
 }
 
 dependencies {
-    compile group: 'org.springframework', name: 'spring-beans', version: '5.2.1.RELEASE'
-    compile group: 'org.springframework', name: 'spring-context', version: '5.2.1.RELEASE'
+    compile group: 'org.springframework', name: 'spring-beans', version: "$springVersion"
+    compile group: 'org.springframework', name: 'spring-context', version: "$springVersion"
+    compile group: "org.springframework", name: "spring-test", version: "$springVersion"
+    compile group: "org.springframework", name: "spring-aop", version: "$springVersion"
     compile group: 'javax.inject', name: 'javax.inject', version: '1'
+    compile group: "org.aspectj", name: "aspectjrt", version: "1.+"
+    compile group: "org.aspectj", name: "aspectjweaver", version: "1.+"
+    compile group: "org.aspectj", name: "aspectjtools", version: "1.+"
     compile 'ch.qos.logback:logback-classic:1.2.3'
     compile 'ch.qos.logback:logback-core:1.2.3'
     compile 'org.slf4j:slf4j-api:1.7.25'
@@ -23,4 +32,5 @@ dependencies {
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.assertj', name: 'assertj-core', version: '3.11.1'
+    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.21.0'
 }

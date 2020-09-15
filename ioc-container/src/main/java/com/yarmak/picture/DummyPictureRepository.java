@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class DummyPictureRepository {
+public class DummyPictureRepository implements DummyRepo {
 
     public static final Picture WINTER_SHOES_PIC = new Picture("1", "winter_shoes_front", URI.create("/tmp/images/winter_shoes_front.jpg"), new Resolution(480, 320));
     public static final Picture SNEAKERS_PIC = new Picture("2", "sneakers_front", URI.create("/tmp/images/sneakers_front.jpg"), new Resolution(480, 320));
@@ -29,10 +29,12 @@ public class DummyPictureRepository {
             "3", T_SHIRT_PIC);
 
 
+    @Override
     public Picture findBy(final String id) {
         return this.storage.get(id);
     }
 
+    @Override
     public List<Picture> findAll() {
         return new ArrayList<>(this.storage.values());
     }

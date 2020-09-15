@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="scopeModifier" class="com.yarmak.config.ScopeModifier"/>
+    <bean class="com.yarmak.config.BeanInstantiationLogger"/>
+
+    <bean id="pictureRepo" name="pictureStorage" class="com.yarmak.picture.DummyPictureRepository" scope="prototype">
+        <constructor-arg index="0" value="xml-based-repository-id-001"/>
+    </bean>
+
+</beans>

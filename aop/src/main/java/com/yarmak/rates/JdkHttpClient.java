@@ -1,4 +1,4 @@
-package com.yarmak.client;
+package com.yarmak.rates;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,21 +13,21 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Component
-public class BasicClient {
+public class JdkHttpClient {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
     private static final String IOS_UA = "Mozilla/5.0 (iPhone; CPU iPhone OS 13_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.2 Mobile/15E148 Safari/604.1";
 
     private final HttpClient httpClient;
 
-    public BasicClient(final HttpClient httpClient) {
+    public JdkHttpClient(final HttpClient httpClient) {
         this.httpClient = httpClient;
     }
 
-    public String sendGet(final String url) {
+    public String sendGet(final URI uri) {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
-                .uri(URI.create(url))
+                .uri(uri)
                 .setHeader("User-Agent", IOS_UA)
                 .build();
         HttpResponse<String> response = null;

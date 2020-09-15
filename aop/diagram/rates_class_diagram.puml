@@ -1,0 +1,58 @@
+@startuml
+
+class CurrencyPair {
+    +buyingPrice: BigDegimal
+    +sellingPrice: BigDecimal
+}
+
+class RunConfigProvider {
+    -parseCurrencies(currencyCodes: String[]): List<Currency>
+    +buildRunConfig(interval: int, monitoredCurrencies: List<Currency>)
+    +getRunConfig(): RunConfig
+}
+
+class RunConfig {
+    +interval: int
+    +monitoredCurrencies: List<Currency>
+}
+
+class RatesProcessor {
+    -agents: List<RatesAgent>
+    -configProvider: RunConfigProvider
+    --
+    +goOverAgents(runConfig: RunConfig)
+    +scheduleGoOverAgents()
+}
+
+class HttpClient {
+    +sendGet(url: String): String
+    -processHeaders(resp: Response)
+}
+
+interface RatesAgent {
+    +getRates(curs: List<Currency>): Map<Currency, CurrencyPair>
+}
+
+class AvalRatesAgent {
+    -httpClien: HttpClient
+    --
+    +getRates(curs: List<Currency>): Map<Currency, CurrencyPair>
+}
+
+class RatesAnalyzer <<aspect>> {
+    -ratesHistory: Queue<CurrencyPair>
+    --
+    +<<After:Advice>> analyzeRate(Object rate)
+    -compareWithLast(CurrencyPair curRate)
+    -addToHistory(CurrencyPair curRate)
+}
+
+
+
+RunConfigProvider -- RunConfig
+RatesProcessor o-- RatesAgent
+RatesProcessor -- RunConfigProvider
+RatesAgent -- CurrencyPair
+RatesAgent <|-- AvalRatesAgent
+AvalRatesAgent -- HttpClient
+@enduml

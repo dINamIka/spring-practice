@@ -1,4 +1,4 @@
-package com.yarmak;
+package com.yarmak.rates;
 
 public class HtmlParsingException extends Throwable {
 

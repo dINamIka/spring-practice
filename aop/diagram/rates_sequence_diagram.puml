@@ -1,0 +1,19 @@
+@startuml
+
+actor User
+
+participant RatesProcessor
+participant RunConfigProvider
+participant RunConfig
+participant RatesAgent
+
+User -> RatesProcessor : getOverAgents()
+RatesProcessor -> RunConfigProvider * : getRunConfig()
+RunConfigProvider -> RunConfig ** : buildInitialConfig()
+return RunConfig
+RunConfigProvider --> RatesProcessor : RunConfig
+RatesProcessor -> RatesAgent : getRates()
+RatesAgent -> JdkHttpClient : sendGet()
+return <<RawResponse>>
+RatesAgent --> RatesProcessor : Map<Currency, RatePair>
+@enduml
